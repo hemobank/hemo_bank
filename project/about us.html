@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | 🩸HemoBank</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+    }
+     .navbar-brand img {
+  height: 40px;          /* Adjust as needed */
+  width: auto;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  border-radius: 6px;     /* Optional: rounded logo */
+}
+    .team-card {
+      border: none;
+      transition: transform 0.3s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel-item img {
+      height:720px;
+      object-fit: cover;
+    }
+
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
+     footer {
+      background-color: #212529;
+      color: white;
+    }
+
+    footer a {
+      color: #ffffff;
+    }
+
+    footer a:hover {
+      color: #f8d7da;
+      text-decoration: none;
+    }
+
+  
+    
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container">
+      <a class="navbar-brand" href="#"><img src="/project/images/logo.jpg" alt="HemoBank Logo"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="about us.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="donor registration.html">Donor Registration</a></li>
+          <li class="nav-item"><a class="nav-link" href="receiver.html">Receiver</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="registration.html">Sign In</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+ <!-- Carousel -->
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+  <!-- Slides -->
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="10000">
+      <img src="/project/images/slide1.jpg" class="d-block w-100" alt="Slide 1">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Blood Donation Awareness</h5>
+        <p>Learn about different blood types and the importance of each donation.</p>
+      </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="5000">
+      <img src="/project/images/slide 2.gif" class="d-block w-100" alt="Slide 2">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Compassionate Donors</h5>
+        <p>Meet the heroes who donate blood to save lives every day.</p>
+      </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="5000">
+      <img src="/project/images/slide3.jpg" class="d-block w-100" alt="Slide 3">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Donate Today</h5>
+        <p>Your small act of kindness can save lives. Join the movement now.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+  <!-- About Section -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4" data-aos="fade-up">🩸 About HemoBank – Blood Bank Management System</h2>
+      <p class="text-center lead" data-aos="fade-up" data-aos-delay="200">
+        
+HemoBank is a modern and efficient Blood Bank Management System designed to bridge the critical gap between blood donors and recipients. Our platform harnesses the power of technology to ensure that every drop counts—providing timely, secure, and reliable access to life-saving blood.
+
+We streamline the entire process—from donor registration and blood availability tracking to emergency requests and hospital coordination. With real-time updates, easy donor communication, and robust data security, HemoBank empowers hospitals, patients, and donors to act quickly and confidently during emergencies.
+
+Our mission is to save lives by making blood donation smarter, faster, and more accessible. Whether you're a first-time donor or a healthcare provider, HemoBank ensures that every donation reaches those who need it most—when they need it most.
+      </p>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5" data-aos="zoom-in">Meet Our Team</h2>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="flip-left">
+          <div class="card team-card text-center p-3">
+            <img src="/project/images/pragati.jpg" class="profile-img mx-auto" alt="Team Member">
+            <h5 class="card-title">Pragati Kumari</h5>
+            <p class="card-text">Project Lead & Frontend Developer</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="flip-left" data-aos-delay="150">
+          <div class="card team-card text-center p-3">
+            <img src="/project/images/saloni.jpg" class="profile-img mx-auto" alt="Team Member">
+            <h5 class="card-title">Saloni Kumari</h5>
+            <p class="card-text">Frontend & UI Designer</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="flip-left" data-aos-delay="300">
+          <div class="card team-card text-center p-3">
+            <img src="#" class="profile-img mx-auto" alt="Team Member">
+            <h5 class="card-title">Saurabh Pandey</h5>
+            <p class="card-text">Database & API Integration</p>
+          </div>
+        </div>
+               <div class="col-md-4" data-aos="flip-left">
+          <div class="card team-card text-center p-3">
+            <img src="/project/images/ashish.jpg" class="profile-img mx-auto" alt="Team Member">
+            <h5 class="card-title">Ashish Kumar</h5>
+            <p class="card-text">Frontend Developer & UI Designer</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="flip-left" data-aos-delay="150">
+          <div class="card team-card text-center p-3">
+            <img src="#" class="profile-img mx-auto" alt="Team Member">
+            <h5 class="card-title">Ashutosh Kumar</h5>
+            <p class="card-text">Frontend & UI Designer</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="flip-left" data-aos-delay="300">
+          <div class="card team-card text-center p-3">
+            <img src="#" class="profile-img mx-auto" alt="Team Member">
+            <h5 class="card-title">Mintu Kumar</h5>
+            <p class="card-text">Frontend & UI Designer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- Footer -->
+  <footer class="pt-5 pb-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">🩸HemoBank</h5>
+          <p>We connect donors and hospitals to save lives through blood donation. Join us to make a difference.</p>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">Quick Links</h5>
+          <p><a href="index.html" class="text-white">Home</a></p>
+          <p><a href="about us.html" class="text-white">About Us</a></p>
+          <p><a href="donor registration.html" class="text-white">Donor Registration</a></p>
+          <p><a href="receiver.html" class="text-white">Receiver</a></p>
+          <p><a href="login.html" class="text-white">Login</a></p>
+          <p><a href="registration.html" class="text-white">Sign In</a></p>
+        </div>
+        <div class="col-md-4 mb-4" id="contact-form">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">Contact Us</h5>
+          <form>
+            <div class="mb-2">
+              <input type="text" class="form-control form-control-sm" placeholder="Your Name" required />
+            </div>
+            <div class="mb-2">
+              <input type="email" class="form-control form-control-sm" placeholder="Your Email" required />
+            </div>
+            <div class="mb-2">
+              <textarea class="form-control form-control-sm" rows="2" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-danger btn-sm">Send</button>
+          </form>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">Follow Us</h5>
+          <a href="#" class="text-white d-block mb-2"><i class="bi bi-facebook me-2"></i>Facebook</a>
+          <a href="#" class="text-white d-block mb-2"><i class="bi bi-instagram me-2"></i>Instagram</a>
+          <a href="#" class="text-white d-block mb-2"><i class="bi bi-twitter me-2"></i>Twitter</a>
+          <a href="#" class="text-white d-block"><i class="bi bi-envelope me-2"></i>Email</a>
+        </div>
+      </div>
+      <hr class="my-3 text-white" />
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="mb-0">&copy; 2025 HemoBank. All Rights Reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>
