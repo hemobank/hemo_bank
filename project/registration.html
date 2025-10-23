@@ -215,6 +215,9 @@ console.log("JS file loaded"); // Check if JS is running
       const bloodGroup = document.getElementById("bloodGroup").value.trim();
       const password = document.getElementById("password").value;
       const confirmPassword = document.getElementById("confirmPassword").value;
+console.log("res.ok:", res.ok);
+console.log("res.status:", res.status);
+console.log("res.json():", json);
 
       if (password !== confirmPassword) {
         alert("Passwords do not match!");
