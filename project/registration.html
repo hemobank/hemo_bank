@@ -204,47 +204,54 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
 AOS.init();
+console.log("JS file loaded"); // Check if JS is running
 
-document.getElementById("registerForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      console.log("Form submitted"); // Check if submit works
 
-  const password = e.target.password.value;
-  const confirmPassword = e.target.confirmPassword.value;
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const bloodGroup = document.getElementById("bloodGroup").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
 
-  // 🔹 Password confirmation check
-  if (password !== confirmPassword) {
-    alert("Passwords do not match!");
-    return;
-  }
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
 
-  const data = {
-    name: e.target.fullName.value,      // <- backend expects 'name'
-    email: e.target.email.value,
-    bloodGroup: e.target.bloodGroup.value,
-    password: password
-  };
+      const data = { 
+        name: fullName,   // backend expects 'name'
+        email,
+        bloodGroup,
+        password
+      };
 
-  try {
-    const res = await fetch("https://hemo-26ab.onrender.com/api/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      try {
+        const res = await fetch("https://hemo-26ab.onrender.com/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        const json = await res.json();
+
+        console.log("Response status:", res.status);
+        console.log("Response body:", json);
+
+        if (res.ok) {
+          alert("Registration successful!");
+          e.target.reset();
+          window.location.href = "login.html";
+        } else {
+          alert("Error: " + json.error);
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Server error");
+      }
     });
-
-    const json = await res.json();
-
-    if (res.ok) {
-      alert("Registration successful!");
-      e.target.reset();
-      window.location.href = "login.html";  // redirect after success
-    } else {
-      alert("Error: " + json.error);
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Server error");
-  }
-});
 </script>
 </body>
 </html>
