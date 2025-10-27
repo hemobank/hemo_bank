@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🩸HemoBank</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      background-color: #e7eef5;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.8rem;
+    }
+
+    .navbar-nav .nav-link {
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #ffd8db;
+    }
+
+    .navbar-brand img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+      border-radius: 6px;
+    }
+
+    .navbar {
+      background-color: #dc3545;
+    }
+
+    /* Welcome section */
+    body > h1 {
+      margin-top: 20px; /* space below navbar */
+      text-align: center;
+    }
+
+    .intro {
+      text-align: center;
+      font-size: 16px;
+      margin-bottom: 40px;
+      padding: 0 15px;
+    }
+
+    /* Features */
+    .section-features .card {
+      margin: 0 auto 20px auto;
+      border-radius: 16px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .section-features .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      color: #dc3545;
+      margin-bottom: 15px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #212529;
+      color: white;
+      font-size: 14px;
+      border-top: 5px solid #dc3545;
+      padding-top: 40px;
+      padding-bottom: 20px;
+    }
+
+    footer a {
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #f8d7da;
+    }
+
+    @media (max-width: 992px) {
+      .feature-icon {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .feature-icon {
+        font-size: 2rem;
+      }
+      .intro {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger shadow">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="./index.html">
+        <img src="../images/logo.jpg" alt="Website Logo">
+        <span style="color: white; font-size: 18px;">HemoBank</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about us.html">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Welcome -->
+  <h1>Welcome, <span id="fullname">User</span></h1>
+  <p class="intro">
+    Welcome to <b>HEMOBANK</b>, Blood Bank Management System.<br>
+    Here users can donate blood, request blood, and check availability at nearby hospitals and NGOs.
+  </p>
+
+  <!-- Features -->
+  <section class="py-5 bg-light section-features">
+    <div class="container text-center">
+      <h1 class="mb-5">Features</h1>
+      <div class="row justify-content-center g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="card p-4 border-0 shadow-sm h-100">
+            <div class="feature-icon">&#128138;</div>
+            <h5><a href="./donor registration.html" class="text-decoration-none text-dark">Easy Donor Registration</a></h5>
+            <p>Quick and secure online registration for voluntary blood donors.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="card p-4 border-0 shadow-sm h-100">
+            <div class="feature-icon">&#128137;</div>
+            <h5><a href="" class="text-decoration-none text-dark">Live Blood Availability</a></h5>
+            <p>Check real-time blood stock at nearby blood banks and hospitals.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="card p-4 border-0 shadow-sm h-100">
+            <div class="feature-icon">&#128657;</div>
+            <h5><a href="./receiver.html" class="text-decoration-none text-dark">Emergency Requests</a></h5>
+            <p>Request blood instantly during emergencies and notify local donors.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row text-start gy-4">
+        <!-- Column 1 -->
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-danger">🩸HemoBank</h5>
+          <p>We connect donors and hospitals to save lives through blood donation. Join us to make a difference.</p>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-danger">Quick Links</h5>
+          <p><a href="index.html" class="text-white">Home</a></p>
+          <p><a href="about us.html" class="text-white">About Us</a></p>
+        </div>
+
+        <!-- Column 3 -->
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-danger">Feedback</h5>
+          <form>
+            <div class="mb-2"><input type="text" class="form-control form-control-sm" placeholder="Your Name" required></div>
+            <div class="mb-2"><input type="email" class="form-control form-control-sm" placeholder="Your Email" required></div>
+            <div class="mb-2"><textarea class="form-control form-control-sm" rows="2" placeholder="Your Message" required></textarea></div>
+            <button type="submit" class="btn btn-danger btn-sm">Send</button>
+          </form>
+        </div>
+
+        <!-- Column 4 -->
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-danger">Follow Us On</h5>
+          <a href="https://www.facebook.com/share/1BpFBLEAL2/" class="text-white d-block mb-2"><i class="bi bi-facebook me-2"></i>Facebook</a>
+          <a href="https://www.instagram.com/hemo__bank?igsh=MW9kajFmNTZqeGhldQ==" class="text-white d-block mb-2"><i class="bi bi-instagram me-2"></i>Instagram</a>
+          <a href="https://x.com/hemobank0?t=3dOhYns2LWEdNiwhV_EQkQ&s=09" class="text-white d-block mb-2"><i class="bi bi-twitter me-2"></i>Twitter</a>
+          <a href="hemobank0@gmail.com" class="text-white d-block"><i class="bi bi-envelope me-2"></i>Email</a>
+        </div>
+      </div>
+      <hr class="my-3 text-white" />
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="mb-0">&copy; 2025 HemoBank. All Rights Reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const fullname = "";
+    document.getElementById("fullname").innerText = fullname;
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
