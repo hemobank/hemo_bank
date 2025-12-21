@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How it works</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    footer {
+      background-color: #212529;
+      color: white;
+      font-size: 14px;
+      border-top: 5px solid #dc3545;
+    }
+
+    footer a {
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #f8d7da;
+      text-decoration: none;
+    }
+
+    /* === Center content styling === */
+    main {
+      min-height: 80vh; /* occupy height between navbar & footer */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .steps {
+      text-align: left;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+
+    h1 {
+      color: #dc3545;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    h2 {
+      color: #dc3545;
+      margin-top: 30px;
+    }
+
+    ol {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="./index.html">
+        <img src="../images/logo.jpg" alt="Website Logo">
+        <span style="color: white; font-size: 18px;">HemoBank</span>
+      </a>
+
+      <!-- Toggle button for mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar Links -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about us.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="registration.html">Sign In</a></li>
+
+          <!-- Dropdown Menu Button -->
+          <li class="nav-item dropdown ms-lg-3">
+            <a class="nav-link dropdown-toggle btn btn-light text-danger px-3 py-1" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Menu
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="index.html">🏠 Home</a></li>
+              <li><a class="dropdown-item" href="about us.html">ℹ About Us</a></li>
+              <li><a class="dropdown-item" href="login.html">🔑 Login</a></li>
+              <li><a class="dropdown-item" href="registration.html">📝 Sign In</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Centered Main Content -->
+  <main class="page" role="main">
+    <section class="intro" aria-labelledby="intro-heading">
+      <h1>🩸HemoBank</h1>
+      <p class="lead">HemoBank is a simple digital platform that connects blood donors, blood banks, and people in need. Our mission is to make blood donation and access faster, easier, and more transparent so that no life is lost for lack of blood.</p>
+
+      <div class="section">
+        <div class="steps">
+          <h2><span class="heart">❤</span> Steps to Donate Blood:</h2>
+          <ol>
+            <li>Visit HemoBank and click on <strong>Register as Donor</strong>.</li>
+            <li>Fill in your personal information and blood group details.</li>
+            <li>Choose a nearby blood bank for donation from the options.</li>
+            <li>Schedule your donation date and reach the selected center on time.</li>
+            <li>After donation, you will receive confirmation and a thank-you message.</li>
+          </ol>
+        </div>
+
+        <div class="steps">
+          <h2><span class="heart">❤</span> Steps to Receive Blood:</h2>
+          <ol>
+            <li>Go to HemoBank and click on <strong>Request Blood</strong>.</li>
+            <li>Enter the required details: patient name, blood group, and your location/contact info.</li>
+            <li>The system will notify nearby donors and registered blood banks.</li>
+            <li>When a match is found, the donor or blood bank will contact you directly.</li>
+            <li>Visit the hospital or blood bank to collect the blood as instructed.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="pt-5 pb-4 bg-dark text-white">
+    <div class="container">
+      <div class="row">
+        <!-- About -->
+        <div class="col-md-3 mb-4">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">🩸HemoBank</h5>
+          <p>We connect donors and hospitals to save lives through blood donation. Join us to make a difference.</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-md-2 mb-4">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">Quick Links</h5>
+      <p><a href="index.html" class="text-white">Home</a></p>
+          <p><a href="about us.html" class="text-white">About Us</a></p>
+          <p><a href="login.html" class="text-white">Login</a></p>
+          <p><a href="registration.html" class="text-white">Sign In</a></p>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="col-md-4 mb-4" id="contact-form">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">Contact Us</h5>
+          <form>
+            <div class="mb-2">
+              <input type="text" class="form-control form-control-sm" placeholder="Your Name" required />
+            </div>
+            <div class="mb-2">
+              <input type="email" class="form-control form-control-sm" placeholder="Your Email" required />
+            </div>
+            <div class="mb-2">
+              <textarea class="form-control form-control-sm" rows="2" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-danger btn-sm">Send</button>
+          </form>
+        </div>
+
+        <!-- Social Media -->
+        <div class="col-md-3 mb-4">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">Follow Us On:</h5>
+          <a href="https://www.facebook.com/share/1BpFBLEAL2/" class="text-white d-block mb-2 text-decoration-none"><i class="bi bi-facebook me-2"></i>Facebook</a>
+          <a href="https://www.instagram.com/hemo__bank?igsh=MW9kajFmNTZqeGhldQ==" class="text-white d-block mb-2 text-decoration-none"><i class="bi bi-instagram me-2"></i>Instagram</a>
+          <a href="https://x.com/hemobank0?t=3dOhYns2LWEdNiwhV_EQkQ&s=09" class="text-white d-block mb-2 text-decoration-none"><i class="bi bi-twitter me-2"></i>Twitter</a>
+          <a href="hemobank0@gmail.com" class="text-white d-block text-decoration-none"><i class="bi bi-envelope me-2"></i>Email</a>
+        </div>
+      </div>
+      <hr class="my-3 text-white" />
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="mb-0">&copy; 2025 HemoBank. All Rights Reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
