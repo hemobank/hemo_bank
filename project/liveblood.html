@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function unique(arr){ return [...new Set(arr)]; }
 
-  fetch("hospitals.json")
+  fetch("hospital.json")
     .then(res => res.json())
     .then(json => {
       data = json;
@@ -258,5 +258,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </body>
 </html>
+
 
 
