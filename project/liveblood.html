@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Check Live Blood availability | 🩸HemoBank</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <style>
+    html { scroll-behavior: smooth;}
+    body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa;}
+    .navbar-brand img { height: 40px; width: auto; object-fit: contain; display: inline-block; vertical-align: middle; margin-right: 8px;  border-radius: 6px;     }
+    .box {
+  width: 100%;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+}
+
+    select { width:100%; padding:10px; margin-top:10px; }
+    .details { margin-top:20px; background:#eee; padding:15px; border-radius:5px; display:none; }
+    .badge { background:red; color:white; padding:3px 8px; border-radius:4px; font-size:12px; }
+    footer {
+            background-color: #212529;
+      color: white;
+      font-size: 14px;
+      border-top: 5px solid #dc3545;
+    }
+
+    footer a {
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #f8d7da;
+       text-decoration: none;
+    }
+    @media (max-width: 600px) {
+  .hospital-card {
+    flex-direction: column;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="./index.html">
+  <img src="../images/logo.jpg" alt="Website Logo">
+  <span style="color: white; font-size: 18px;">HemoBank</span>
+</a>
+</div>
+</nav>
+ 
+<div class="box">
+  <h2>Check blood availability:</h2>
+  <h6>Select the country</h6>
+  <select id="country"></select>
+  <h6>Select the state:</h6>
+  <select id="state" disabled></select>
+  <h6>Select the district:</h6>
+  <select id="district" disabled></select>
+
+  <div class="details" id="details"></div>
+</div>
+<footer class="pt-5 pb-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">🩸HemoBank</h5>
+          <p>We connect donors and hospitals to save lives through blood donation. Join us to make a difference.</p>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">Quick Links</h5>
+          <p><a href="index.html" class="text-white">Home</a></p>
+          <p><a href="about us.html" class="text-white">About Us</a></p>
+          <p><a href="login.html" class="text-white">Login</a></p>
+          <p><a href="registration.html" class="text-white">Sign In</a></p>
+        </div>
+        <div class="col-md-4 mb-4" id="contact-form">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">Feedback:</h5>
+          <form>
+            <div class="mb-2">
+              <input type="text" class="form-control form-control-sm" placeholder="Your Name" required />
+            </div>
+            <div class="mb-2">
+              <input type="email" class="form-control form-control-sm" placeholder="Your Email" required />
+            </div>
+            <div class="mb-2">
+              <textarea class="form-control form-control-sm" rows="2" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-danger btn-sm">Send</button>
+          </form>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">Follow Us On:</h5>
+          <a href="https://www.facebook.com/share/1BpFBLEAL2/" class="text-white d-block mb-2"><i class="bi bi-facebook me-2"></i>Facebook</a>
+          <a href="https://www.instagram.com/hemo__bank?igsh=MW9kajFmNTZqeGhldQ==" class="text-white d-block mb-2"><i class="bi bi-instagram me-2"></i>Instagram</a>
+          <a href="https://x.com/hemobank0?t=3dOhYns2LWEdNiwhV_EQkQ&s=09" class="text-white d-block mb-2"><i class="bi bi-twitter me-2"></i>Twitter</a>
+          <a href="hemobank0@gmail.com" class="text-white d-block"><i class="bi bi-envelope me-2"></i>Email</a>
+        </div>
+      </div>
+      <hr class="my-3 text-white" />
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="mb-0">&copy; 2025 HemoBank. All Rights Reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script>
+let data = [];
+
+const country = document.getElementById("country");
+const state = document.getElementById("state");
+const district = document.getElementById("district");
+const details = document.getElementById("details");
+
+function unique(arr){ return [...new Set(arr)]; }
+
+fetch("hospitals.json")
+  .then(res => res.json())
+  .then(json => {
+    data = json;
+    loadCountries();
+  });
+
+function loadCountries(){
+  country.innerHTML = `<option value="">Select Country</option>`;
+  unique(data.map(d=>d.country)).forEach(c=>{
+    country.innerHTML += `<option value="${c}">${c}</option>`;
+  });
+}
+
+country.addEventListener("change", () => {
+  state.disabled = false;
+  district.disabled = true;
+
+  state.innerHTML = `<option value="">Select State</option>`;
+  district.innerHTML = `<option value="">Select District</option>`;
+  details.style.display = "none";
+
+  unique(
+    data.filter(d => d.country === country.value).map(d => d.state)
+  ).forEach(s=>{
+    state.innerHTML += `<option value="${s}">${s}</option>`;
+  });
+});
+
+state.addEventListener("change", () => {
+  district.disabled = false;
+  district.innerHTML = `<option value="">Select District</option>`;
+  details.style.display = "none";
+
+  unique(
+    data.filter(d =>
+      d.country === country.value &&
+      d.state === state.value
+    ).map(d => d.district)
+  ).forEach(d=>{
+    district.innerHTML += `<option value="${d}">${d}</option>`;
+  });
+});
+
+district.addEventListener("change", () => {
+  details.innerHTML = "";
+  details.style.display = "block";
+
+  const hospitals = data.filter(h =>
+    h.country === country.value &&
+    h.state === state.value &&
+    h.district === district.value
+  );
+
+  if (hospitals.length === 0) {
+    details.innerHTML = `<p>No hospitals found in this district.</p>`;
+    return;
+  }
+
+  hospitals.forEach(h => {
+
+    // 🔹 IMAGE LOGIC (NEW)
+    const imageSrc = h.photo && h.photo !== ""
+      ? h.photo
+      : "images/hospitals/default-hospital.jpg";
+
+    const card = document.createElement("div");
+    card.style.background = "#f8f9fa";
+    card.style.padding = "15px";
+    card.style.borderRadius = "8px";
+    card.style.marginBottom = "15px";
+
+    card.innerHTML = `
+      <div style="display:flex; gap:15px; align-items:flex-start; flex-wrap:wrap;">
+        <img 
+          src="${imageSrc}" 
+          alt="Hospital Image"
+          style="width:130px; height:100px; object-fit:cover; border-radius:8px;"
+        >
+
+        <div style="flex:1;">
+          <h4>${h.hospitalName}</h4>
+          <p><b>Contact:</b> ${h.contact}</p>
+          <p><b>Status:</b> <span class="badge">Unverified</span></p>
+
+          <p><b>Blood Stock:</b></p>
+          <ul>
+            ${Object.entries(h.bloodStock)
+              .map(([bg, st]) => `<li>${bg}: ${st}</li>`).join("")}
+          </ul>
+
+          <small>⚠ Please confirm availability with hospital directly.</small>
+        </div>
+      </div>
+    `;
+
+    details.appendChild(card);
+  });
+});
+</script>
+
+
+<!-- 🔹 External scripts ALAG likho -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init();</script>
+
+
+</body>
+</html>
