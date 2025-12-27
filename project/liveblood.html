@@ -115,120 +115,139 @@
   </footer>
 
 <script>
-let data = [];
+document.addEventListener("DOMContentLoaded", function () {
 
-const country = document.getElementById("country");
-const state = document.getElementById("state");
-const district = document.getElementById("district");
-const details = document.getElementById("details");
+  let data = [];
 
-function unique(arr){ return [...new Set(arr)]; }
+  const country = document.getElementById("country");
+  const state = document.getElementById("state");
+  const district = document.getElementById("district");
+  const details = document.getElementById("details");
 
-fetch("hospitals.json")
-  .then(res => res.json())
-  .then(json => {
-    data = json;
-    loadCountries();
-  });
+  function unique(arr){ return [...new Set(arr)]; }
 
-function loadCountries(){
-  country.innerHTML = `<option value="" selected disabled>Select Country</option>`;
+  fetch("hospitals.json")
+    .then(res => res.json())
+    .then(json => {
+      data = json;
+      loadCountries();
+    });
 
-  unique(data.map(d => d.country)).forEach(c => {
-    const opt = document.createElement("option");
-    opt.value = c;
-    opt.textContent = c;
-    country.appendChild(opt);
-  });
-}
+  function loadCountries(){
+    country.innerHTML = "";
 
+    const defaultOpt = document.createElement("option");
+    defaultOpt.value = "";
+    defaultOpt.textContent = "Select Country";
+    defaultOpt.disabled = true;
+    defaultOpt.selected = true;
+    country.appendChild(defaultOpt);
 
-country.addEventListener("change", () => {
-  state.disabled = false;
-  district.disabled = true;
-
-  state.innerHTML = `<option value="">Select State</option>`;
-  district.innerHTML = `<option value="">Select District</option>`;
-  details.style.display = "none";
-
-  unique(
-    data.filter(d => d.country === country.value).map(d => d.state)
-  ).forEach(s=>{
-    state.innerHTML += `<option value="${s}">${s}</option>`;
-  });
-});
-
-state.addEventListener("change", () => {
-  district.disabled = false;
-  district.innerHTML = `<option value="">Select District</option>`;
-  details.style.display = "none";
-
-  unique(
-    data.filter(d =>
-      d.country === country.value &&
-      d.state === state.value
-    ).map(d => d.district)
-  ).forEach(d=>{
-    district.innerHTML += `<option value="${d}">${d}</option>`;
-  });
-});
-
-district.addEventListener("change", () => {
-  details.innerHTML = "";
-  details.style.display = "block";
-
-  const hospitals = data.filter(h =>
-    h.country === country.value &&
-    h.state === state.value &&
-    h.district === district.value
-  );
-
-  if (hospitals.length === 0) {
-    details.innerHTML = `<p>No hospitals found in this district.</p>`;
-    return;
+    unique(data.map(d => d.country)).forEach(c => {
+      const opt = document.createElement("option");
+      opt.value = c;
+      opt.textContent = c;
+      country.appendChild(opt);
+    });
   }
 
-  hospitals.forEach(h => {
+  country.addEventListener("change", () => {
+    state.disabled = false;
+    district.disabled = true;
 
-    // 🔹 IMAGE LOGIC (NEW)
-    const imageSrc = h.photo && h.photo !== ""
-      ? h.photo
-      : "images/hospitals/default-hospital.jpg";
+    state.innerHTML = "";
+    district.innerHTML = "";
+    details.style.display = "none";
 
-    const card = document.createElement("div");
-    card.style.background = "#f8f9fa";
-    card.style.padding = "15px";
-    card.style.borderRadius = "8px";
-    card.style.marginBottom = "15px";
+    const stDefault = document.createElement("option");
+    stDefault.textContent = "Select State";
+    stDefault.disabled = true;
+    stDefault.selected = true;
+    state.appendChild(stDefault);
 
-    card.innerHTML = `
-      <div style="display:flex; gap:15px; align-items:flex-start; flex-wrap:wrap;">
-        <img 
-          src="${imageSrc}" 
-          alt="Hospital Image"
-          style="width:130px; height:100px; object-fit:cover; border-radius:8px;"
-        >
-
-        <div style="flex:1;">
-          <h4>${h.hospitalName}</h4>
-          <p><b>Contact:</b> ${h.contact}</p>
-          <p><b>Status:</b> <span class="badge">Unverified</span></p>
-
-          <p><b>Blood Stock:</b></p>
-          <ul>
-            ${Object.entries(h.bloodStock)
-              .map(([bg, st]) => `<li>${bg}: ${st}</li>`).join("")}
-          </ul>
-
-          <small>⚠ Please confirm availability with hospital directly.</small>
-        </div>
-      </div>
-    `;
-
-    details.appendChild(card);
+    unique(
+      data.filter(d => d.country === country.value).map(d => d.state)
+    ).forEach(s=>{
+      const opt = document.createElement("option");
+      opt.value = s;
+      opt.textContent = s;
+      state.appendChild(opt);
+    });
   });
+
+  state.addEventListener("change", () => {
+    district.disabled = false;
+    district.innerHTML = "";
+    details.style.display = "none";
+
+    const distDefault = document.createElement("option");
+    distDefault.textContent = "Select District";
+    distDefault.disabled = true;
+    distDefault.selected = true;
+    district.appendChild(distDefault);
+
+    unique(
+      data.filter(d =>
+        d.country === country.value &&
+        d.state === state.value
+      ).map(d => d.district)
+    ).forEach(d=>{
+      const opt = document.createElement("option");
+      opt.value = d;
+      opt.textContent = d;
+      district.appendChild(opt);
+    });
+  });
+
+  district.addEventListener("change", () => {
+    details.innerHTML = "";
+    details.style.display = "block";
+
+    const hospitals = data.filter(h =>
+      h.country === country.value &&
+      h.state === state.value &&
+      h.district === district.value
+    );
+
+    if (hospitals.length === 0) {
+      details.innerHTML = `<p>No hospitals found in this district.</p>`;
+      return;
+    }
+
+    hospitals.forEach(h => {
+      const imageSrc = h.photo && h.photo !== ""
+        ? h.photo
+        : "images/hospitals/default-hospital.jpg";
+
+      const card = document.createElement("div");
+      card.style.background = "#f8f9fa";
+      card.style.padding = "15px";
+      card.style.borderRadius = "8px";
+      card.style.marginBottom = "15px";
+
+      card.innerHTML = `
+        <div style="display:flex; gap:15px; align-items:flex-start; flex-wrap:wrap;">
+          <img src="${imageSrc}"
+               style="width:130px;height:100px;object-fit:cover;border-radius:8px;">
+          <div style="flex:1;">
+            <h4>${h.hospitalName}</h4>
+            <p><b>Contact:</b> ${h.contact}</p>
+            <p><b>Status:</b> <span class="badge">Unverified</span></p>
+            <ul>
+              ${Object.entries(h.bloodStock)
+                .map(([bg, st]) => `<li>${bg}: ${st}</li>`).join("")}
+            </ul>
+            <small>⚠ Please confirm availability with hospital directly.</small>
+          </div>
+        </div>
+      `;
+      details.appendChild(card);
+    });
+  });
+
 });
 </script>
+
 
 
 <!-- 🔹 External scripts ALAG likho -->
@@ -239,4 +258,5 @@ district.addEventListener("change", () => {
 
 </body>
 </html>
+
 
