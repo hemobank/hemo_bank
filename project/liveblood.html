@@ -132,11 +132,16 @@ fetch("hospitals.json")
   });
 
 function loadCountries(){
-  country.innerHTML = `<option value="">Select Country</option>`;
-  unique(data.map(d=>d.country)).forEach(c=>{
-    country.innerHTML += `<option value="${c}">${c}</option>`;
+  country.innerHTML = `<option value="" selected disabled>Select Country</option>`;
+
+  unique(data.map(d => d.country)).forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c;
+    opt.textContent = c;
+    country.appendChild(opt);
   });
 }
+
 
 country.addEventListener("change", () => {
   state.disabled = false;
@@ -234,3 +239,4 @@ district.addEventListener("change", () => {
 
 </body>
 </html>
+
