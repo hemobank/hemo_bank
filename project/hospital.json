@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "country": "India",
+    "state": "Bihar",
+    "district": "Buxar",
+    "hospitalName": "Government Hospital",
+    "contact": "0141-2560291",
+    "photo": "images/hospitals/sms-jaipur.jpg",
+    "verified": false,
+    "bloodStock": {
+      "A+": "Available",
+      "B+": "Low",
+      "O+": "Available",
+      "O-": "Not Available"
+    },
+    "lastUpdated": "2025-01-20"
+  }
+]
