@@ -35,5 +35,23 @@
     },
     "lastUpdated": "2025-01-20"
   }
+  {
+    "id": 3,
+    "country": "India",
+    "state": "Bihar",
+    "district": "Patna",
+    "hospitalName": "NMCH Patna",
+    "address": "Agamkuan, Patna, Bihar 800007",
+    "contact": "9431823456",
+    "photo": "https://media.collegedekho.com/media/img/institute/crawled_images/None/E716AT_1686226798640_1.png",
+    "verified": true,
+    "bloodStock": {
+      "A+": "Low",
+      "B+": "Available", 
+      "O+": "Available",
+      "O-": "Low"
+    },
+    "lastUpdated": "2025-01-22"
+  },
 ]
 
