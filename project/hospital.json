@@ -53,5 +53,23 @@
     },
     "lastUpdated": "2025-01-22"
   },
+  {
+    "id": 4,
+    "country": "India",
+    "state": "Bihar",
+    "district": "Gaya",
+    "hospitalName": "ANMMCH Gaya",
+    "address": "Sherghati Road, Gaya, Bihar 823001",
+    "contact": "9123456780",
+    "photo": "",
+    "verified": true,
+    "bloodStock": { 
+      "A+": "Available",
+      "B+": "Not Available",
+      "O+": "Low",
+      "O-": "Not Available"
+    },
+    "lastUpdated": "2025-01-18"
+  },
 ]
 
