@@ -4,7 +4,26 @@
     "country": "India",
     "state": "Bihar",
     "district": "Buxar",
-    "hospitalName": "Government Hospital, Buxar",
+    "hospitalName": "Government Hospital",
+    "address": "HX33+R47, Bibiganj, Buxar, Bihar 802101",
+    "contact": "8539900661",
+    "photo": "",
+    "verified": false,
+    "bloodStock": {
+      "A+": "Available",
+      "B+": "Low",
+      "O+": "Available",
+      "O-": "Not Available"
+    },
+    "lastUpdated": "2025-01-20"
+  },
+  {
+    "id": 2,
+    "country": "India",
+    "state": "Bihar",
+    "district": "Buxar",
+    "hospitalName": "Sadar Hospital",
+    "address": "Naya bazar, Buxar, Bihar 802101",
     "contact": "8539900661",
     "photo": "",
     "verified": false,
@@ -17,3 +36,4 @@
     "lastUpdated": "2025-01-20"
   }
 ]
+
