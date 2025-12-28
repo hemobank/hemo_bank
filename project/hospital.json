@@ -44,7 +44,7 @@
     "address": "Agamkuan, Patna, Bihar 800007",
     "contact": "9431823456",
     "photo": "https://media.collegedekho.com/media/img/institute/crawled_images/None/E716AT_1686226798640_1.png",
-    "verified": true,
+    "verified": false,
     "bloodStock": {
       "A+": "Low",
       "B+": "Available", 
@@ -62,7 +62,7 @@
     "address": "Sherghati Road, Gaya, Bihar 823001",
     "contact": "9123456780",
     "photo": "",
-    "verified": true,
+    "verified": false,
     "bloodStock": { 
       "A+": "Available",
       "B+": "Not Available",
@@ -70,6 +70,6 @@
       "O-": "Not Available"
     },
     "lastUpdated": "2025-01-18"
-  },
+  }
 ]
 
