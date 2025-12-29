@@ -202,14 +202,14 @@
       const adminData = await adminRes.json();
       const adminEmails = adminData.admins;
 
-      alert("✅ Login successful!");
+     alert("✅ Login successful!");
 
-      // 3️⃣ Role based redirect
-      if (adminEmails.includes(email)) {
-        window.location.href = "./admin.html";
-      } else {
-        window.location.href = "./dashboard.html";
-      }
+// Role based redirect
+if (adminEmails.includes(email)) {
+  window.location.href = `./admin.html?email=${encodeURIComponent(email)}`;
+} else {
+  window.location.href = "./dashboard.html";
+}
 
     } catch (error) {
       console.error("Login error:", error);
