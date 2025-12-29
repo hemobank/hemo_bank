@@ -1,0 +1,46 @@
+<html>
+  <body>
+    <h1>Hey </h1>
+  </body>
+  <script>
+(async function () {
+  try {
+    // 1️⃣ URL se email lo
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get("email");
+
+    // ❌ Email hi nahi → direct URL access
+    if (!email) {
+      alert("❌ Unauthorized access. Please login first.");
+      window.location.href = "login.html";
+      return;
+    }
+
+    // 2️⃣ admins.json fetch karo
+    const res = await fetch("admins.json");
+    if (!res.ok) throw new Error("Admins file not found");
+
+    const data = await res.json();
+    const adminEmails = data.admins;
+
+    // 3️⃣ Email admin list me nahi hai
+    if (!adminEmails.includes(email)) {
+      alert("❌ Access denied. Admin only.");
+      window.location.href = "dashboard.html";
+      return;
+    }
+
+    // ✅ Admin verified → page allowed
+
+    // 🔐 OPTIONAL: URL se email hata do (extra safety)
+    window.history.replaceState({}, document.title, "admin.html");
+
+  } catch (err) {
+    console.error("Admin guard error:", err);
+    alert("❌ Security error");
+    window.location.href = "login.html";
+  }
+})();
+</script>
+
+</html>
