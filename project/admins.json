@@ -5,47 +5,47 @@
       "email": "hemobank0@gmail.com",
       "phone": "8969769169",
       "role": "Admin",
-      "photo": "./logo.jpg"
+      "photo": "/logo.jpg"
     },
     { "name": "Saurabh Pandey",
       "email": "saurabhpandey993626@gmail.com",
       "phone": "9876543210",
       "role": "Backend developer and database developer",
-      "photo": "./saurabh.jpg"
+      "photo": "/saurabh.jpg"
     },
   {
       "name": "Pragati Kumari ",
       "email": "iampragatikumari2008@gmail.com",
       "phone": "9031579488",
       "role": "Team leader and Frontend Developer",
-      "photo": "./pragati.jpg"
+      "photo": "/pragati.jpg"
     },
     {
       "name": "Saloni Kumari",
       "email": "salonicpr2007@gmail.com",
       "phone": "8434415199",
       "role": "Tester and Quality Assurance",
-      "photo": "./saloni.jpg"
+      "photo": "/saloni.jpg"
     },
     { "name": "Mintu Kumar",
       "email": "mintu2323kk@gmail.com",
       "phone": "6206390270",
       "role": "UX designer",
-      "photo": "./ashish.jpg"
+      "photo": "/ashish.jpg"
     },
   {
       "name": "Ashish Kumar ",
       "email": "bgpashish99@gmail.com",
       "phone": "953929435",
       "role": "API integration",
-      "photo": "./ashish.jpg"
+      "photo": "/ashish.jpg"
     },
     {
       "name": "Ashutosh Kumar ",
       "email": "starashutosh28@gmail.com",
       "phone": "7635058808",
       "role": "UI designer",
-      "photo": "./ashutosh.jpg"
+      "photo": "/ashutosh.jpg"
     }
   ]
 }
