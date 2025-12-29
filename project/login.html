@@ -181,41 +181,50 @@
     const payload = { email, password };
 
     try {
-      // 1️⃣ Login API call
-      const res = await fetch("https://hemo-26ab.onrender.com/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      });
+  // 1️⃣ Login API call
+  const res = await fetch("https://hemo-26ab.onrender.com/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
 
-      const result = await res.json();
+  const result = await res.json();
 
-      if (!res.ok) {
-        alert("⚠️ Error: " + result.error);
-        return;
-      }
+  if (!res.ok) {
+    alert("⚠️ Error: " + result.error);
+    return;
+  }
 
-      // 2️⃣ Admin JSON fetch
-      const adminRes = await fetch("admins.json");
-      const adminData = await adminRes.json();
-      const adminEmails = adminData.admins;
+  // 2️⃣ Admin JSON fetch
+  const adminRes = await fetch("admins.json");
+  const adminData = await adminRes.json();
 
-     alert("✅ Login successful!");
+  // ✅ email normalize (VERY IMPORTANT)
+  const cleanEmail = email.trim().toLowerCase();
 
-// Role based redirect
-if (adminEmails.includes(email)) {
-  window.location.href = `./admin.html?email=${encodeURIComponent(email)}`;
-} else {
-  window.location.href = `./dashboard.html?email=${encodeURIComponent(email)}`;
+  // ✅ OBJECT-based admin check
+  const adminUser = adminData.admins.find(
+    a => a.email.trim().toLowerCase() === cleanEmail
+  );
+
+  alert("✅ Login successful!");
+
+  // 3️⃣ Role based redirect
+  if (adminUser) {
+    window.location.href =
+      `./admin.html?email=${encodeURIComponent(cleanEmail)}`;
+  } else {
+    window.location.href =
+      `./dashboard.html?email=${encodeURIComponent(cleanEmail)}`;
+  }
+
+} catch (error) {
+  console.error("Login error:", error);
+  alert("❌ Server error, please try again later.");
 }
 
-
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("❌ Server error, please try again later.");
-    }
   });
 </script>
 
