@@ -119,19 +119,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let data = [];
 
-  const country = document.getElementById("country");
-  const state = document.getElementById("state");
-  const district = document.getElementById("district");
-  const details = document.getElementById("details");
+const country = document.getElementById("country");
+const state = document.getElementById("state");
+const district = document.getElementById("district");
+const details = document.getElementById("details");
 
-  function unique(arr){ return [...new Set(arr)]; }
+function unique(arr){ 
+  return [...new Set(arr)]; 
+}
 
-  fetch("hospital.json")
-    .then(res => res.json())
-    .then(json => {
-      data = json;
-      loadCountries();
-    });
+// 🔥 BACKEND SE DATA FETCH
+fetch("https://hospital-7zd2.onrender.com/api/hospitals")
+  .then(res => {
+    if (!res.ok) {
+      throw new Error("Failed to fetch hospitals");
+    }
+    return res.json();
+  })
+  .then(json => {
+    data = json;
+    loadCountries();   // tumhara existing function
+  })
+  .catch(err => {
+    console.error("Error loading hospital data:", err);
+    details.innerHTML = "<p>⚠ Unable to load hospital data</p>";
+  });
+
 
   function loadCountries(){
     country.innerHTML = "";
@@ -259,6 +272,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </body>
 </html>
+
 
 
 
