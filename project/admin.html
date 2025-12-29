@@ -281,11 +281,24 @@ function openUpdate(){
    ADD HOSPITAL (BACKEND)
 ===================== */
 async function generateAdd(){
+  let stockText = aStock.value.trim();
+
+  // 🔒 Extra safety: smart quotes replace
+  stockText = stockText
+    .replace(/“|”/g, '"')
+    .replace(/‘|’/g, "'");
+
   let stock;
   try {
-    stock = JSON.parse(aStock.value);
-  } catch {
-    alert("❌ Invalid blood stock JSON");
+    stock = JSON.parse(stockText);
+  } catch (e) {
+    alert(
+      "❌ Blood Stock format galat hai.\n\n" +
+      "Please use valid JSON.\n\n" +
+      "Example:\n" +
+      '{\n  "A+": "Available",\n  "O+": "Available"\n}'
+    );
+    console.error("JSON ERROR:", e);
     return;
   }
 
@@ -323,7 +336,7 @@ async function generateAdd(){
       JSON.stringify(result.hospital, null, 2);
 
   } catch (err) {
-    output.textContent = "❌ Server error while adding hospital";
+    output.textContent = "❌ Server error";
     console.error(err);
   }
 }
