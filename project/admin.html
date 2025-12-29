@@ -141,6 +141,7 @@ pre{
     /* ✅ YAHIN PROFILE FILL KARO */
     document.getElementById("adminName").textContent = admin.name;
     document.getElementById("adminEmail").textContent = admin.email;
+   document.getElementById("adminRole").textContent = admin.role;
     document.getElementById("adminPhone").textContent = admin.phone;
     document.getElementById("adminPhoto").src = admin.photo;
 
@@ -176,6 +177,7 @@ pre{
     <h3 id="adminName"></h3>
     <p><b>Email:</b> <span id="adminEmail"></span></p>
     <p><b>Phone:</b> <span id="adminPhone"></span></p>
+    p><b>Role:</b> <span id="adminRole"></span></p>
   </div>
 </div>
 
@@ -208,6 +210,7 @@ pre{
   <input id="uName" placeholder="Hospital Name">
   <input id="uAddress" placeholder="Address">
   <input id="uContact" placeholder="Contact">
+  <textarea id="aStock" rows="4" placeholder='Blood Stock JSON'></textarea>
   <button onclick="generateUpdate()">Generate Updated JSON</button>
 </div>
 
