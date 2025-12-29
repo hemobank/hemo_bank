@@ -1,46 +1,313 @@
-<html>
-  <body>
-    <h1>Hey </h1>
-  </body>
-  <script>
-(async function () {
-  try {
-    // 1️⃣ URL se email lo
-    const params = new URLSearchParams(window.location.search);
-    const email = params.get("email");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel |🩸HemoBank</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
-    // ❌ Email hi nahi → direct URL access
-    if (!email) {
-      alert("❌ Unauthorized access. Please login first.");
-      window.location.href = "login.html";
-      return;
+<style>
+  html {
+      scroll-behavior: smooth;
+    }
+body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      background-color: #e7eef5;
     }
 
-    // 2️⃣ admins.json fetch karo
-    const res = await fetch("admins.json");
-    if (!res.ok) throw new Error("Admins file not found");
-
-    const data = await res.json();
-    const adminEmails = data.admins;
-
-    // 3️⃣ Email admin list me nahi hai
-    if (!adminEmails.includes(email)) {
-      alert("❌ Access denied. Admin only.");
-      window.location.href = "dashboard.html";
-      return;
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+  margin-bottom:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+.admin-card{
+  display:flex;
+  gap:20px;
+  align-items:center;
+}
+.admin-card img{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  object-fit:cover;
+}
+button{
+  padding:10px 15px;
+  margin-right:10px;
+  border:none;
+  border-radius:5px;
+  background:#c1121f;
+  color:#fff;
+  cursor:pointer;
+}
+button.secondary{
+  background:#555;
+}
+input, textarea, select{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+}
+textarea{ resize:vertical }
+h3{ color:#c1121f }
+pre{
+  background:#eee;
+  padding:15px;
+  border-radius:8px;
+  overflow:auto;
+}
+  .navbar-brand {
+      font-weight: bold;
+      font-size: 1.8rem;
     }
 
-    // ✅ Admin verified → page allowed
+    .navbar-nav .nav-link {
+      font-weight: 500;
+      transition: color 0.3s;
+    }
 
-    // 🔐 OPTIONAL: URL se email hata do (extra safety)
-    window.history.replaceState({}, document.title, "admin.html");
+    .navbar-nav .nav-link:hover {
+      color: #ffd8db;
+    }
 
-  } catch (err) {
-    console.error("Admin guard error:", err);
-    alert("❌ Security error");
-    window.location.href = "login.html";
+    .navbar-brand img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+      border-radius: 6px;
+    }
+
+    .navbar {
+      background-color: #dc3545;
+    }
+  footer {
+      background-color: #212529;
+      color: white;
+      font-size: 14px;
+      border-top: 5px solid #dc3545;
+      padding-top: 40px;
+      padding-bottom: 20px;
+    }
+
+    footer a {
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #f8d7da;
+    }
+.hidden{ display:none }
+</style>
+</head>
+
+<body>
+
+<!-- 🔐 ADMIN GUARD -->
+<script>
+(async function(){
+  const email = new URLSearchParams(location.search).get("email");
+  if(!email){
+    location.href="login.html";
+    return;
   }
+  const res = await fetch("admins.json");
+  const data = await res.json();
+  const admin = data.admins.find(a=>a.email===email);
+  if(!admin){
+    location.href="dashboard.html";
+    return;
+  }
+  window.currentAdmin = admin;
 })();
 </script>
+<!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger shadow">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="./index.html">
+        <img src="../images/logo.jpg" alt="Website Logo">
+        <span style="color: white; font-size: 18px;">HemoBank</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="login.html">Log Out</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!-- 👤 ADMIN PROFILE CARD -->
+<div class="card admin-card">
+  <img id="adminPhoto">
+  <div>
+    <h3 id="adminName"></h3>
+    <p><b>Email:</b> <span id="adminEmail"></span></p>
+    <p><b>Phone:</b> <span id="adminPhone"></span></p>
+  </div>
+</div>
 
+<!-- 🔘 ACTION BUTTONS -->
+<div class="card">
+  <button onclick="openAdd()">➕ Add Hospital Detail</button>
+  <button class="secondary" onclick="openUpdate()">✏️ Update Hospital Detail</button>
+</div>
+
+<!-- ➕ ADD HOSPITAL -->
+<div class="card hidden" id="addSection">
+  <h3>Add Hospital</h3>
+  <input id="aName" placeholder="Hospital Name">
+  <input id="aCountry" placeholder="Country">
+  <input id="aState" placeholder="State">
+  <input id="aDistrict" placeholder="District">
+  <input id="aAddress" placeholder="Address">
+  <input id="aContact" placeholder="Contact">
+  <input id="aPhoto" placeholder="Photo URL">
+  <textarea id="aStock" rows="4" placeholder='Blood Stock JSON'></textarea>
+  <button onclick="generateAdd()">Generate JSON</button>
+</div>
+
+<!-- ✏️ UPDATE HOSPITAL -->
+<div class="card hidden" id="updateSection">
+  <h3>Update Hospital</h3>
+  <select id="hospitalSelect">
+    <option value="">Select Hospital</option>
+  </select>
+  <input id="uName" placeholder="Hospital Name">
+  <input id="uAddress" placeholder="Address">
+  <input id="uContact" placeholder="Contact">
+  <button onclick="generateUpdate()">Generate Updated JSON</button>
+</div>
+
+<!-- 📤 OUTPUT -->
+<div class="card">
+  <h3>Generated JSON</h3>
+  <pre id="output">// JSON will appear here</pre>
+</div>
+<footer>
+    <div class="container">
+      <div class="row text-start gy-4">
+        <!-- Column 1 -->
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-danger">🩸HemoBank</h5>
+          <p>We connect donors and hospitals to save lives through blood donation. Join us to make a difference.</p>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-danger">Quick Links</h5>
+          <p><a href="index.html" class="text-white">Home</a></p>
+          <p><a href="about us.html" class="text-white">About Us</a></p>
+        </div>
+
+        <!-- Column 3 -->
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-danger">Feedback</h5>
+          <form>
+            <div class="mb-2"><input type="text" class="form-control form-control-sm" placeholder="Your Name" required></div>
+            <div class="mb-2"><input type="email" class="form-control form-control-sm" placeholder="Your Email" required></div>
+            <div class="mb-2"><textarea class="form-control form-control-sm" rows="2" placeholder="Your Message" required></textarea></div>
+            <button type="submit" class="btn btn-danger btn-sm">Send</button>
+          </form>
+        </div>
+
+        <!-- Column 4 -->
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-danger">Follow Us On</h5>
+          <a href="https://www.facebook.com/share/1BpFBLEAL2/" class="text-white d-block mb-2"><i class="bi bi-facebook me-2"></i>Facebook</a>
+          <a href="https://www.instagram.com/hemo__bank?igsh=MW9kajFmNTZqeGhldQ==" class="text-white d-block mb-2"><i class="bi bi-instagram me-2"></i>Instagram</a>
+          <a href="https://x.com/hemobank0?t=3dOhYns2LWEdNiwhV_EQkQ&s=09" class="text-white d-block mb-2"><i class="bi bi-twitter me-2"></i>Twitter</a>
+          <a href="hemobank0@gmail.com" class="text-white d-block"><i class="bi bi-envelope me-2"></i>Email</a>
+        </div>
+      </div>
+      <hr class="my-3 text-white" />
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="mb-0">&copy; 2025 HemoBank. All Rights Reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+<script>
+/* ADMIN INFO */
+adminPhoto.src = currentAdmin.photo;
+adminName.textContent = currentAdmin.name;
+adminEmail.textContent = currentAdmin.email;
+adminPhone.textContent = currentAdmin.phone;
+
+/* TOGGLE */
+function openAdd(){
+  addSection.classList.remove("hidden");
+  updateSection.classList.add("hidden");
+}
+function openUpdate(){
+  updateSection.classList.remove("hidden");
+  addSection.classList.add("hidden");
+}
+
+/* ADD HOSPITAL */
+function generateAdd(){
+  let stock;
+  try{ stock = JSON.parse(aStock.value); }
+  catch{ alert("Invalid blood stock JSON"); return; }
+
+  const hospital={
+    id:Date.now(),
+    hospitalName:aName.value,
+    country:aCountry.value,
+    state:aState.value,
+    district:aDistrict.value,
+    address:aAddress.value,
+    contact:aContact.value,
+    photo:aPhoto.value,
+    verified:false,
+    bloodStock:stock
+  };
+  output.textContent=JSON.stringify(hospital,null,2);
+}
+
+/* UPDATE HOSPITAL */
+let hospitals=[];
+fetch("hospital.json")
+.then(r=>r.json())
+.then(d=>{
+  hospitals=d;
+  d.forEach(h=>{
+    const o=document.createElement("option");
+    o.value=h.id;
+    o.textContent=h.hospitalName;
+    hospitalSelect.appendChild(o);
+  });
+});
+
+hospitalSelect.onchange=()=>{
+  const h=hospitals.find(x=>x.id==hospitalSelect.value);
+  if(!h)return;
+  uName.value=h.hospitalName;
+  uAddress.value=h.address;
+  uContact.value=h.contact;
+};
+
+function generateUpdate(){
+  const h=hospitals.find(x=>x.id==hospitalSelect.value);
+  if(!h){alert("Select hospital");return;}
+  h.hospitalName=uName.value;
+  h.address=uAddress.value;
+  h.contact=uContact.value;
+  output.textContent=JSON.stringify(h,null,2);
+}
+</script>
+
+</body>
 </html>
