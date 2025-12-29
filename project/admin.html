@@ -112,22 +112,45 @@ pre{
 
 <!-- 🔐 ADMIN GUARD -->
 <script>
-(async function(){
-  const email = new URLSearchParams(location.search).get("email");
-  if(!email){
-    location.href="login.html";
-    return;
+(async function adminGuard() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const emailParam = params.get("email");
+
+    if (!emailParam) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    const email = decodeURIComponent(emailParam)
+      .trim()
+      .toLowerCase();
+
+    const res = await fetch("admins.json");
+    const data = await res.json();
+
+    const admin = data.admins.find(
+      a => a.email.trim().toLowerCase() === email
+    );
+
+    if (!admin) {
+      window.location.href = "dashboard.html";
+      return;
+    }
+
+    /* ✅ YAHIN PROFILE FILL KARO */
+    document.getElementById("adminName").textContent = admin.name;
+    document.getElementById("adminEmail").textContent = admin.email;
+    document.getElementById("adminPhone").textContent = admin.phone;
+    document.getElementById("adminPhoto").src = admin.photo;
+
+  } catch (err) {
+    console.error("Admin guard error:", err);
+    window.location.href = "login.html";
   }
-  const res = await fetch("admins.json");
-  const data = await res.json();
-  const admin = data.admins.find(a=>a.email===email);
-  if(!admin){
-    location.href="dashboard.html";
-    return;
-  }
-  window.currentAdmin = admin;
 })();
 </script>
+
 <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger shadow">
     <div class="container">
@@ -240,11 +263,6 @@ pre{
 
 
 <script>
-/* ADMIN INFO */
-adminPhoto.src = currentAdmin.photo;
-adminName.textContent = currentAdmin.name;
-adminEmail.textContent = currentAdmin.email;
-adminPhone.textContent = currentAdmin.phone;
 
 /* TOGGLE */
 function openAdd(){
