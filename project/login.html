@@ -208,8 +208,9 @@
 if (adminEmails.includes(email)) {
   window.location.href = `./admin.html?email=${encodeURIComponent(email)}`;
 } else {
-  window.location.href = "./dashboard.html";
+  window.location.href = `./dashboard.html?email=${encodeURIComponent(email)}`;
 }
+
 
     } catch (error) {
       console.error("Login error:", error);
