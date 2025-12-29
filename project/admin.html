@@ -194,7 +194,7 @@ pre{
   <input id="aContact" placeholder="Contact">
   <input id="aPhoto" placeholder="Photo URL">
   <textarea id="aStock" rows="4" placeholder='Blood Stock JSON'></textarea>
-  <button onclick="generateAdd()">Generate JSON</button>
+  <button onclick="addHospital()">Add Hospital</button>
 </div>
 
 <!-- ✏️ UPDATE HOSPITAL -->
@@ -207,7 +207,7 @@ pre{
   <input id="uAddress" placeholder="Address">
   <input id="uContact" placeholder="Contact">
   <textarea id="aStock" rows="4" placeholder='Blood Stock JSON'></textarea>
-  <button onclick="generateUpdate()">Generate Updated JSON</button>
+  <button onclick="updateHospital()">Update Hospital</button>
 </div>
 
 <!-- 📤 OUTPUT -->
@@ -260,69 +260,144 @@ pre{
     </div>
   </footer>
 
-
 <script>
-
-/* TOGGLE */
+/* =====================
+   TOGGLE SECTIONS
+===================== */
 function openAdd(){
   addSection.classList.remove("hidden");
   updateSection.classList.add("hidden");
+  output.textContent = "";
 }
+
 function openUpdate(){
   updateSection.classList.remove("hidden");
   addSection.classList.add("hidden");
+  output.textContent = "";
 }
 
-/* ADD HOSPITAL */
-function generateAdd(){
+/* =====================
+   ADD HOSPITAL (BACKEND)
+===================== */
+async function generateAdd(){
   let stock;
-  try{ stock = JSON.parse(aStock.value); }
-  catch{ alert("Invalid blood stock JSON"); return; }
+  try {
+    stock = JSON.parse(aStock.value);
+  } catch {
+    alert("❌ Invalid blood stock JSON");
+    return;
+  }
 
-  const hospital={
-    id:Date.now(),
-    hospitalName:aName.value,
-    country:aCountry.value,
-    state:aState.value,
-    district:aDistrict.value,
-    address:aAddress.value,
-    contact:aContact.value,
-    photo:aPhoto.value,
-    verified:false,
-    bloodStock:stock
+  const hospital = {
+    hospitalName: aName.value,
+    country: aCountry.value,
+    state: aState.value,
+    district: aDistrict.value,
+    address: aAddress.value,
+    contact: aContact.value,
+    photo: aPhoto.value,
+    verified: false,
+    bloodStock: stock
   };
-  output.textContent=JSON.stringify(hospital,null,2);
+
+  try {
+    const res = await fetch(
+      "https://hospital-7zd2.onrender.com/api/hospitals",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(hospital)
+      }
+    );
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      output.textContent = "❌ ERROR:\n" + JSON.stringify(result, null, 2);
+      return;
+    }
+
+    output.textContent =
+      "✅ HOSPITAL ADDED SUCCESSFULLY\n\n" +
+      JSON.stringify(result.hospital, null, 2);
+
+  } catch (err) {
+    output.textContent = "❌ Server error while adding hospital";
+    console.error(err);
+  }
 }
 
-/* UPDATE HOSPITAL */
-let hospitals=[];
-fetch("hospital.json")
-.then(r=>r.json())
-.then(d=>{
-  hospitals=d;
-  d.forEach(h=>{
-    const o=document.createElement("option");
-    o.value=h.id;
-    o.textContent=h.hospitalName;
-    hospitalSelect.appendChild(o);
-  });
-});
+/* =====================
+   LOAD HOSPITALS (BACKEND)
+===================== */
+let hospitals = [];
 
-hospitalSelect.onchange=()=>{
-  const h=hospitals.find(x=>x.id==hospitalSelect.value);
-  if(!h)return;
-  uName.value=h.hospitalName;
-  uAddress.value=h.address;
-  uContact.value=h.contact;
+fetch("https://hospital-7zd2.onrender.com/api/hospitals")
+  .then(r => r.json())
+  .then(d => {
+    hospitals = d;
+    hospitalSelect.innerHTML = `<option value="">Select Hospital</option>`;
+    d.forEach(h => {
+      const o = document.createElement("option");
+      o.value = h.id;
+      o.textContent = `${h.hospitalName} (ID: ${h.id})`;
+      hospitalSelect.appendChild(o);
+    });
+  })
+  .catch(err => {
+    console.error("Failed to load hospitals", err);
+  });
+
+hospitalSelect.onchange = () => {
+  const h = hospitals.find(x => x.id == hospitalSelect.value);
+  if (!h) return;
+
+  uName.value = h.hospitalName || "";
+  uAddress.value = h.address || "";
+  uContact.value = h.contact || "";
 };
 
-function generateUpdate(){
-  const h=hospitals.find(x=>x.id==hospitalSelect.value);
-  if(!h){alert("Select hospital");return;}
-  h.hospitalName=uName.value;
-  h.address=uAddress.value;
-  h.contact=uContact.value;
-  output.textContent=JSON.stringify(h,null,2);
+/* =====================
+   UPDATE HOSPITAL (BACKEND)
+===================== */
+async function generateUpdate(){
+  const h = hospitals.find(x => x.id == hospitalSelect.value);
+  if (!h) {
+    alert("❌ Select hospital first");
+    return;
+  }
+
+  const updatedData = {
+    hospitalName: uName.value,
+    address: uAddress.value,
+    contact: uContact.value
+  };
+
+  try {
+    const res = await fetch(
+      `https://hospital-7zd2.onrender.com/api/hospitals/${h.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData)
+      }
+    );
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      output.textContent = "❌ ERROR:\n" + JSON.stringify(result, null, 2);
+      return;
+    }
+
+    output.textContent =
+      "♻ HOSPITAL UPDATED SUCCESSFULLY\n\n" +
+      JSON.stringify(result.hospital, null, 2);
+
+  } catch (err) {
+    output.textContent = "❌ Server error while updating hospital";
+    console.error(err);
+  }
 }
 </script>
 
