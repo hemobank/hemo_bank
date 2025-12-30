@@ -317,7 +317,7 @@ async function generateAdd(){
 
   try {
     const res = await fetch(
-      "https://hospital-7zd2.onrender.com/api/hospitals",
+      "https://hospital-z95k.onrender.com/api/hospitals",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -347,7 +347,7 @@ async function generateAdd(){
 ===================== */
 let hospitals = [];
 
-fetch("https://hospital-7zd2.onrender.com/api/hospitals")
+fetch("https://hospital-z95k.onrender.com/api/hospitals")
   .then(r => r.json())
   .then(d => {
     hospitals = d;
@@ -390,7 +390,7 @@ async function generateUpdate(){
 
   try {
     const res = await fetch(
-      `https://hospital-7zd2.onrender.com/api/hospitals/${h.id}`,
+      `https://hospital-z95k.onrender.com/api/hospitals/${h.id}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
