@@ -194,7 +194,7 @@ pre{
   <input id="aContact" placeholder="Contact">
   <input id="aPhoto" placeholder="Photo URL">
   <textarea id="aStock" rows="4" placeholder='Blood Stock JSON'></textarea>
-  <button type="button" onclick="generateAdd()">Add Hospital</button> ✅
+  <button type="button" onclick="generateAdd()">Add Hospital</button> 
 
 </div>
 
@@ -207,8 +207,9 @@ pre{
   <input id="uName" placeholder="Hospital Name">
   <input id="uAddress" placeholder="Address">
   <input id="uContact" placeholder="Contact">
-  <textarea id="aStock" rows="4" placeholder='Blood Stock JSON'></textarea>
-  <button type="button" onclick="updateHospital()">Update Hospital</button>
+  <textarea id="uStock" rows="4" placeholder='Blood Stock JSON'></textarea>
+  <button type="button" onclick="generateUpdate()">Update Hospital</button>
+
 </div>
 
 <!-- 📤 OUTPUT -->
@@ -311,7 +312,7 @@ async function generateAdd(){
     contact: aContact.value,
     photo: aPhoto.value,
     verified: false,
-    bloodStock: aStock.value
+    bloodStock: stock
   };
 
   try {
