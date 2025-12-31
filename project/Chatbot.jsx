@@ -13,7 +13,7 @@ export default function Chatbot() {
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
 
-    const res = await fetch("https://YOUR-BACKEND-URL.onrender.com/chat", {
+    const res = await fetch("https://chatbot-lato.onrender.com/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: input }),
