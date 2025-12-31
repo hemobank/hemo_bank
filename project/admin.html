@@ -193,6 +193,7 @@ pre{
   <input id="aAddress" placeholder="Address">
   <input id="aContact" placeholder="Contact">
   <input id="aEmail" placeholder="Hospital Email">
+  <input id="aPhoto" placeholder="Photo URL">
   <textarea id="aStock" rows="4" placeholder='Blood Stock JSON'></textarea>
   <button type="button" onclick="generateAdd()">Add Hospital</button> 
 
@@ -303,7 +304,10 @@ async function generateAdd(){
     console.error("JSON ERROR:", e);
     return;
   }
-
+if (!aEmail.value.includes("@")) {
+  alert("❌ Enter Valid Email.");
+  return;
+}
   const hospital = {
     hospitalName: aName.value,
     country: aCountry.value,
@@ -312,13 +316,11 @@ async function generateAdd(){
     address: aAddress.value,
     contact: aContact.value,
     email: aEmail.value,
+    photo: aPhoto.value,
     verified: false,
     bloodStock: stock
   };
-  if (!aEmail.value.includes("@")) {
-  alert("❌ Enter Valid Email.");
-  return;
-}
+  
 
 
   try {
@@ -376,7 +378,7 @@ hospitalSelect.onchange = () => {
   uName.value = h.hospitalName || "";
   uAddress.value = h.address || "";
   uContact.value = h.contact || "";
-  uEmail.value h.email || "";
+  uEmail.value = h.email || "";
 };
 
 /* =====================
