@@ -375,11 +375,16 @@ hospitalSelect.onchange = () => {
   const h = hospitals.find(x => x.id == hospitalSelect.value);
   if (!h) return;
 
-  uName.value = h.hospitalName || "";
+  uName.value = h.hospitalName || h.hospitalname || "";
   uAddress.value = h.address || "";
   uContact.value = h.contact || "";
   uEmail.value = h.email || "";
+
+  // ✅ Optional: show existing blood stock
+  uStock.value = JSON.stringify(h.bloodStock || {}, null, 2);
 };
+
+
 
 /* =====================
    UPDATE HOSPITAL (BACKEND)
@@ -390,12 +395,22 @@ async function generateUpdate(){
     alert("❌ Select hospital first");
     return;
   }
+  let stock;
+if (uStock.value.trim()) {
+  try {
+    stock = JSON.parse(uStock.value);
+  } catch (e) {
+    alert("❌ Blood Stock JSON invalid");
+    return;
+  }
+}
 
   const updatedData = {
     hospitalName: uName.value,
     address: uAddress.value,
     contact: uContact.value,
-    email: uEmail.value
+    email: uEmail.value,
+    bloodStock: stock
   };
 
   try {
