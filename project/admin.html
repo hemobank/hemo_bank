@@ -192,7 +192,7 @@ pre{
   <input id="aDistrict" placeholder="District">
   <input id="aAddress" placeholder="Address">
   <input id="aContact" placeholder="Contact">
-  <input id="aPhoto" placeholder="Photo URL">
+  <input id="aEmail" placeholder="Hospital Email">
   <textarea id="aStock" rows="4" placeholder='Blood Stock JSON'></textarea>
   <button type="button" onclick="generateAdd()">Add Hospital</button> 
 
@@ -207,6 +207,7 @@ pre{
   <input id="uName" placeholder="Hospital Name">
   <input id="uAddress" placeholder="Address">
   <input id="uContact" placeholder="Contact">
+  <input id="uEmail" placeholder="Hospital Email">
   <textarea id="uStock" rows="4" placeholder='Blood Stock JSON'></textarea>
   <button type="button" onclick="generateUpdate()">Update Hospital</button>
 
@@ -310,10 +311,15 @@ async function generateAdd(){
     district: aDistrict.value,
     address: aAddress.value,
     contact: aContact.value,
-    photo: aPhoto.value,
+    email: aEmail.value,
     verified: false,
     bloodStock: stock
   };
+  if (!aEmail.value.includes("@")) {
+  alert("❌ Enter Valid Email.");
+  return;
+}
+
 
   try {
     const res = await fetch(
@@ -370,6 +376,7 @@ hospitalSelect.onchange = () => {
   uName.value = h.hospitalName || "";
   uAddress.value = h.address || "";
   uContact.value = h.contact || "";
+  uEmail.value h.email || "";
 };
 
 /* =====================
@@ -385,7 +392,8 @@ async function generateUpdate(){
   const updatedData = {
     hospitalName: uName.value,
     address: uAddress.value,
-    contact: uContact.value
+    contact: uContact.value,
+    email: uEmail.value
   };
 
   try {
