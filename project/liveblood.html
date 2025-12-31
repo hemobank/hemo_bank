@@ -246,11 +246,13 @@ fetch("https://hospital-z95k.onrender.com/api/hospitals")
             <h4>${h.hospitalName}</h4>
             <p><b>Address:</b> ${h.address}</p>
             <p><b>Contact:</b> ${h.contact}</p>
+            <p><b>Email:</b> ${h.email}</p>
             <p><b>Status:</b> <span class="badge">Unverified</span></p>
             <ul>
               ${Object.entries(h.bloodStock)
                 .map(([bg, st]) => `<li>${bg}: ${st}</li>`).join("")}
             </ul>
+            <p><b>Last Updated:</b> ${h.lastupdated}</p>
             <small>⚠ Please confirm availability with hospital directly.</small>
           </div>
         </div>
@@ -272,6 +274,7 @@ fetch("https://hospital-z95k.onrender.com/api/hospitals")
 
 </body>
 </html>
+
 
 
 
