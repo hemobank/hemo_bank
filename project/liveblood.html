@@ -1,280 +1,214 @@
 <!DOCTYPE html>
 <html>
-<meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Check Live Blood availability | 🩸HemoBank</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<head>
+<meta charset="UTF-8">
+<title>Hemo Bank</title>
 
-  <style>
-    html { scroll-behavior: smooth;}
-    body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa;}
-    .navbar-brand img { height: 40px; width: auto; object-fit: contain; display: inline-block; vertical-align: middle; margin-right: 8px;  border-radius: 6px;     }
-    .box {
-  width: 100%;
-  min-height: 100vh;
-  max-width: 1200px;
-  margin: auto;
-  background: #fff;
-  padding: 30px;
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#ffe6e6;
 }
 
-    select { width:100%; padding:10px; margin-top:10px; }
-    .details { margin-top:20px; background:#eee; padding:15px; border-radius:5px; display:none; }
-    .badge { background:red; color:white; padding:3px 8px; border-radius:4px; font-size:12px; }
-    footer {
-            background-color: #212529;
-      color: white;
-      font-size: 14px;
-      border-top: 5px solid #dc3545;
-    }
-
-    footer a {
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    footer a:hover {
-      color: #f8d7da;
-       text-decoration: none;
-    }
-    @media (max-width: 600px) {
-  .hospital-card {
-    flex-direction: column;
-  }
+header{
+background:#b30000;
+color:white;
+padding:20px;
+text-align:center;
+font-size:28px;
 }
 
-  </style>
+.container{
+padding:30px;
+text-align:center;
+}
+
+.search{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+display:inline-block;
+}
+
+select{
+padding:10px;
+margin:10px;
+font-size:16px;
+}
+
+button{
+padding:10px 20px;
+background:#cc0000;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+.cards{
+margin-top:30px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+.card{
+background:white;
+width:240px;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card h3{
+color:#cc0000;
+margin:0;
+}
+
+.units{
+color:green;
+font-weight:bold;
+}
+
+</style>
 </head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="./index.html">
-  <img src="../images/logo.jpg" alt="Website Logo">
-  <span style="color: white; font-size: 18px;">HemoBank</span>
-</a>
-</div>
-</nav>
- 
-<div class="box">
-  <h2>Check blood availability:</h2>
-  <h6>Select the country</h6>
-  <select id="country"></select>
-  <h6>Select the state:</h6>
-  <select id="state" disabled></select>
-  <h6>Select the district:</h6>
-  <select id="district" disabled></select>
 
-  <div class="details" id="details"></div>
+<body>
+
+<header>
+🩸 Hemo Bank Blood Finder
+</header>
+
+<div class="container">
+
+<div class="search">
+
+<select id="blood">
+<option value="">Blood Group</option>
+<option>A+</option>
+<option>A-</option>
+<option>B+</option>
+<option>B-</option>
+<option>O+</option>
+<option>O-</option>
+<option>AB+</option>
+<option>AB-</option>
+</select>
+
+<select id="state" onchange="loadDistricts()">
+<option value="">Select State</option>
+<option>Bihar</option>
+<option>Jharkhand</option>
+<option>UP</option>
+</select>
+
+<select id="district">
+<option value="">Select District</option>
+</select>
+
+<button onclick="searchBlood()">Search</button>
+
 </div>
-<footer class="pt-5 pb-4">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 mb-4">
-          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">🩸HemoBank</h5>
-          <p>We connect donors and hospitals to save lives through blood donation. Join us to make a difference.</p>
-        </div>
-        <div class="col-md-2 mb-4">
-          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">Quick Links</h5>
-          <p><a href="index.html" class="text-white">Home</a></p>
-          <p><a href="about us.html" class="text-white">About Us</a></p>
-          <p><a href="login.html" class="text-white">Login</a></p>
-          <p><a href="registration.html" class="text-white">Sign In</a></p>
-        </div>
-        <div class="col-md-4 mb-4" id="contact-form">
-          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">Feedback:</h5>
-          <form>
-            <div class="mb-2">
-              <input type="text" class="form-control form-control-sm" placeholder="Your Name" required />
-            </div>
-            <div class="mb-2">
-              <input type="email" class="form-control form-control-sm" placeholder="Your Email" required />
-            </div>
-            <div class="mb-2">
-              <textarea class="form-control form-control-sm" rows="2" placeholder="Your Message" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-danger btn-sm">Send</button>
-          </form>
-        </div>
-        <div class="col-md-3 mb-4">
-          <h5 class="text-uppercase mb-4 font-weight-bold text-danger">Follow Us On:</h5>
-          <a href="https://www.facebook.com/share/1BpFBLEAL2/" class="text-white d-block mb-2"><i class="bi bi-facebook me-2"></i>Facebook</a>
-          <a href="https://www.instagram.com/hemo__bank?igsh=MW9kajFmNTZqeGhldQ==" class="text-white d-block mb-2"><i class="bi bi-instagram me-2"></i>Instagram</a>
-          <a href="https://x.com/hemobank0?t=3dOhYns2LWEdNiwhV_EQkQ&s=09" class="text-white d-block mb-2"><i class="bi bi-twitter me-2"></i>Twitter</a>
-          <a href="hemobank0@gmail.com" class="text-white d-block"><i class="bi bi-envelope me-2"></i>Email</a>
-        </div>
-      </div>
-      <hr class="my-3 text-white" />
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <p class="mb-0">&copy; 2025 HemoBank. All Rights Reserved.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+
+<div class="cards" id="results"></div>
+
+</div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
 
-  let data = [];
+/* State -> District Data */
 
-const country = document.getElementById("country");
-const state = document.getElementById("state");
-const district = document.getElementById("district");
-const details = document.getElementById("details");
+const districts = {
 
-function unique(arr){ 
-  return [...new Set(arr)]; 
+"Bihar": ["Siwan","Patna","Gaya","Muzaffarpur","Gopalganj","chapra"],
+
+"Jharkhand": ["Ranchi","Dhanbad","Bokaro"],
+
+"UP": ["Lucknow","Varanasi","Kanpur"]
+
 }
 
-// 🔥 BACKEND SE DATA FETCH
-fetch("https://hospital-z95k.onrender.com/api/hospitals")
-  .then(res => {
-    if (!res.ok) {
-      throw new Error("Failed to fetch hospitals");
-    }
-    return res.json();
-  })
-  .then(json => {
-    data = json;
-    loadCountries();   // tumhara existing function
-  })
-  .catch(err => {
-    console.error("Error loading hospital data:", err);
-    details.innerHTML = "<p>⚠ Unable to load hospital data</p>";
-  });
+/* Load districts */
 
+function loadDistricts(){
 
-  function loadCountries(){
-    country.innerHTML = "";
+const state = document.getElementById("state").value
 
-    const defaultOpt = document.createElement("option");
-    defaultOpt.value = "";
-    defaultOpt.textContent = "Select Country";
-    defaultOpt.disabled = true;
-    defaultOpt.selected = true;
-    country.appendChild(defaultOpt);
+const districtSelect = document.getElementById("district")
 
-    unique(data.map(d => d.country)).forEach(c => {
-      const opt = document.createElement("option");
-      opt.value = c;
-      opt.textContent = c;
-      country.appendChild(opt);
-    });
-  }
+districtSelect.innerHTML="<option>Select District</option>"
 
-  country.addEventListener("change", () => {
-    state.disabled = false;
-    district.disabled = true;
+if(districts[state]){
 
-    state.innerHTML = "";
-    district.innerHTML = "";
-    details.style.display = "none";
+districts[state].forEach(d => {
 
-    const stDefault = document.createElement("option");
-    stDefault.textContent = "Select State";
-    stDefault.disabled = true;
-    stDefault.selected = true;
-    state.appendChild(stDefault);
+districtSelect.innerHTML += `<option>${d}</option>`
 
-    unique(
-      data.filter(d => d.country === country.value).map(d => d.state)
-    ).forEach(s=>{
-      const opt = document.createElement("option");
-      opt.value = s;
-      opt.textContent = s;
-      state.appendChild(opt);
-    });
-  });
+})
 
-  state.addEventListener("change", () => {
-    district.disabled = false;
-    district.innerHTML = "";
-    details.style.display = "none";
+}
 
-    const distDefault = document.createElement("option");
-    distDefault.textContent = "Select District";
-    distDefault.disabled = true;
-    distDefault.selected = true;
-    district.appendChild(distDefault);
+}
 
-    unique(
-      data.filter(d =>
-        d.country === country.value &&
-        d.state === state.value
-      ).map(d => d.district)
-    ).forEach(d=>{
-      const opt = document.createElement("option");
-      opt.value = d;
-      opt.textContent = d;
-      district.appendChild(opt);
-    });
-  });
+/* Search Blood */
 
-  district.addEventListener("change", () => {
-    details.innerHTML = "";
-    details.style.display = "block";
+async function searchBlood(){
 
-    const hospitals = data.filter(h =>
-      h.country === country.value &&
-      h.state === state.value &&
-      h.district === district.value
-    );
+const blood = document.getElementById("blood").value
+const district = document.getElementById("district").value.toLowerCase()
 
-    if (hospitals.length === 0) {
-      details.innerHTML = `<p>No hospitals found in this district.</p>`;
-      return;
-    }
+const res = await fetch("http://localhost:5000/blood")
 
-    hospitals.forEach(h => {
-      const imageSrc = h.photo && h.photo !== ""
-        ? h.photo
-        : "images/hospitals/default-hospital.jpg";
+const data = await res.json()
 
-      const card = document.createElement("div");
-      card.style.background = "#f8f9fa";
-      card.style.padding = "15px";
-      card.style.borderRadius = "8px";
-      card.style.marginBottom = "15px";
+const results = document.getElementById("results")
 
-      card.innerHTML = `
-        <div style="display:flex; gap:15px; align-items:flex-start; flex-wrap:wrap;">
-          <img src="${imageSrc}"
-               style="width:130px;height:100px;object-fit:cover;border-radius:8px;">
-          <div style="flex:1;">
-            <h4>${h.hospitalName}</h4>
-            <p><b>Address:</b> ${h.address}</p>
-            <p><b>Contact:</b> ${h.contact}</p>
-            <p><b>Email:</b> ${h.email}</p>
-            <p><b>Status:</b> <span class="badge">Unverified</span></p>
-            <ul>
-              ${Object.entries(h.bloodStock)
-                .map(([bg, st]) => `<li>${bg}: ${st}</li>`).join("")}
-            </ul>
-            <p><b>Last Updated:</b> ${h.lastupdated}</p>
-            <small>⚠ Please confirm availability with hospital directly.</small>
-          </div>
-        </div>
-      `;
-      details.appendChild(card);
-    });
-  });
+results.innerHTML=""
 
-});
+const filtered = data.filter(item =>
+
+(!blood || item.bloodGroup === blood) &&
+(!district || item.city.toLowerCase().includes(district))
+
+)
+
+if(filtered.length === 0){
+
+results.innerHTML="<h3>No blood found</h3>"
+return
+
+}
+
+filtered.forEach(item => {
+
+results.innerHTML += `
+
+<div class="card">
+
+<h3>${item.hospital}</h3>
+
+<p><b>Blood:</b> ${item.bloodGroup}</p>
+
+<p class="units">Units: ${item.units}</p>
+
+<p><b>Location:</b> ${item.city || "Unknown"}</p>
+
+</div>
+
+`
+
+})
+
+}
+
 </script>
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>AOS.init();</script>
-
 
 </body>
 </html>
-
 
 
 
